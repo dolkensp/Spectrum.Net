@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <title>$id$</title>
+    <version>$version$</version>
+    <authors>Peter Dolkens</authors>
+    <owners>Peter Dolkens</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Spectrum.Net client for the Spectrum API.</description>
+    <copyright>Copyright © $author$ 2014</copyright>
+  </metadata>
+</package>

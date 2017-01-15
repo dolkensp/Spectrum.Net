@@ -203,5 +203,6 @@ publish
 *.zip
 *.xpi
 *.crx
+*.nupkg
 
 private-*.config

@@ -22,8 +22,8 @@ namespace Spectrum.Net.Core
         [JsonProperty("settings")]
         public Settings Settings { get; set; }
 
-        // [JsonProperty("roles")]
-        // public Dictionary<Int32, Int32> Roles { get; set; }
+        [JsonProperty("roles")]
+        public Dictionary<UInt64, UInt64[]> Roles { get; set; }
 
         [JsonProperty("communities")]
         public Community[] Communities { get; set; }

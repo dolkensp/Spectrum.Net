@@ -16,10 +16,10 @@ namespace Spectrum.Net.TestClient
         {
             using (var client = new SpectrumClient(@"https://ptu.cloudimperiumgames.com"))
             {
-                // var signin = await client.LoginAsync("username", "password");
-                // var identify = await client.IdentifyAsync();
+                var signin = await client.LoginAsync(ConfigurationManager.AppSettings["Spectrum.Username"], ConfigurationManager.AppSettings["Spectrum.Password"]);
+                var identify = await client.IdentifyAsync();
 
-                var identify = await client.IdentifyAsync(ConfigurationManager.AppSettings["Token.User"], "x-rsi-ptu-token"); // Alternate way to log in directly
+                // var identify = await client.IdentifyAsync(ConfigurationManager.AppSettings["Token.User"], "x-rsi-ptu-token"); // Alternate way to log in directly - tokens expire
 
                 // client.FrameReceived += Client_OnFrameReceived; // Catch raw frame
                 client.MessageReceived += Client_MessageReceived; // Catch new messages
@@ -43,15 +43,14 @@ namespace Spectrum.Net.TestClient
                             }
                         },
                     },
-                    LobbyId = "2573",
-                    PlainText = "Test Two",
+                    LobbyId = 2573,
                 }); // Send Message
 
                 var softErase = await client.SoftEraseAsync(sendMessage.Data.Id); // Delete Message
 
                 await Task.Delay(-1);
 
-                await client.CloseAsync(); // Disconnect WebSocket
+                await client.DisconnectAsync(); // Disconnect WebSocket
             }
         }
 

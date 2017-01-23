@@ -23,13 +23,13 @@ namespace Spectrum.Net.Core
         public Int32 Depth { get; set; } // "depth": 0,
 
         [JsonProperty("inlineStyleRanges")]
-        public String[] StyleRanges { get; set; } = new String[] { }; // "inlineStyleRanges": [],
+        public StyleRange[] StyleRanges { get; set; } = new StyleRange[] { }; // "inlineStyleRanges": [],
 
         [JsonProperty("entityRanges")]
         public EntityRange[] EntityRanges { get; set; } = new EntityRange[] { }; // "entityRanges": [],
 
         [JsonProperty("data")]
-        public String[] Data { get; set; } = new String[] { }; // "data": []
+        public Data[] Data { get; set; } = new Data[] { }; // "data": { }
 
         // var seenKeys = {};
         // var MULTIPLIER = Math.pow(2, 24);

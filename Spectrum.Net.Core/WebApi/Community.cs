@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core
 {
-    public class Community : Entity
+    public class Community
     {
+        [JsonProperty("id")]
+        public Int32 Id { get; set; }
+
+        [JsonProperty("name")]
+        public String Name { get; set; }
+
         [JsonProperty("slug")]
         public String Slug { get; set; }
 

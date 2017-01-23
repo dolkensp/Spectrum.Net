@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Spectrum.Net.Core")]
+[assembly: AssemblyTitle("Spectrum.Net")]
 [assembly: AssemblyDescription(".Net API for the Spectrum API used by Star Citizen.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Spectrum.Net.Core")]
+[assembly: AssemblyProduct("Spectrum.Net")]
 [assembly: AssemblyCopyright("Copyright © Peter Dolkens 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("bd9ceca1-70d8-4cb8-b028-9bae542a3c08")]
+[assembly: Guid("18587ccb-ce96-4554-8e60-03386faca5dd")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -63,7 +63,12 @@ namespace Spectrum.Net.Core
 
             var str_result = await result.Content.ReadAsStringAsync();
 
-            return str_result.FromJSON<Result<Session>>();
+            var obj_result = str_result.FromJSON<Result<Session>>();
+
+            this._wsToken = obj_result.Data.Token;
+            this._wsRoot = obj_result.Data.Config.BroadcasterWebsocketUrl;
+
+            return obj_result;
         }
 
         public async Task<Result<Session>> IdentifyAsync(String token, String tokenName = "x-rsi-token")
@@ -71,12 +76,12 @@ namespace Spectrum.Net.Core
             this._rsiToken = token;
             this._rsiTokenName = tokenName;
 
-            var result = await this.IdentifyAsync();
+            var obj_result = await this.IdentifyAsync();
 
-            this._wsToken = result.Data.Token;
-            this._wsRoot = result.Data.Config.BroadcasterWebsocketUrl;
+            this._wsToken = obj_result.Data.Token;
+            this._wsRoot = obj_result.Data.Config.BroadcasterWebsocketUrl;
 
-            return result;
+            return obj_result;
         }
 
         public async Task<Result<Message>> SendMessageAsync(Message message)
@@ -92,7 +97,7 @@ namespace Spectrum.Net.Core
             return str_result.FromJSON<Result<Message>>();
         }
 
-        public async Task<Result<Message>> SoftEraseAsync(Int32 messageId)
+        public async Task<Result<Message>> SoftEraseAsync(UInt64 messageId)
         {
             var payload = new
             {
@@ -110,7 +115,7 @@ namespace Spectrum.Net.Core
             return str_result.FromJSON<Result<Message>>();
         }
 
-        public async Task<Result<History>> LoadMessagesAsync(Int32 lobbyId, Int32? before = null, Int32 size = 50)
+        public async Task<Result<History>> LoadMessagesAsync(UInt64 lobbyId, UInt64? before = null, Int32 size = 50)
         {
             var payload = new { lobby_id = lobbyId, before = before, size = size };
 
@@ -127,7 +132,7 @@ namespace Spectrum.Net.Core
 
         public void Dispose()
         {
-            if (this._socketClient.State == WebSocketState.Open) this.CloseAsync().Wait();
+            if (this._socketClient.State == WebSocketState.Open) this.DisconnectAsync().Wait();
 
             this._socketClient.Dispose();
 

@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core
 {
-    public class MessageLobby : Entity
+    public class MessageLobby
     {
+        [JsonProperty("id")]
+        public Int32 Id { get; set; }
+
+        [JsonProperty("name")]
+        public String Name { get; set; }
+
         [JsonProperty("subscription_key")]
         public String SubscriptionKey { get; set; }
 

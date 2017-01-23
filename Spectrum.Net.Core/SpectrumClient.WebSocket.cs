@@ -102,7 +102,7 @@ namespace Spectrum.Net.Core
             });
         }
 
-        public async Task CloseAsync()
+        public async Task DisconnectAsync()
         {
             this._cancellationOwner.Cancel(false);
 

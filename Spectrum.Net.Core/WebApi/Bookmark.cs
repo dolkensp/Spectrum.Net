@@ -14,7 +14,7 @@ namespace Spectrum.Net.Core
         [JsonProperty("type")]
         public BookmarkType Type { get; set; }
 
-        // [JsonProperty("entity")]
-        // public Entity Entity { get; set; }
+        [JsonProperty("entity")]
+        public Dictionary<String, String> _Entity { get; set; }
     }
 }

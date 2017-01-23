@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Net.Core", "Spectr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Net.TestClient", "Spectrum.Net.TestClient\Spectrum.Net.TestClient.csproj", "{9E41B9EF-3875-499A-8961-0AEE87AF5020}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Net", "Spectrum.Net\Spectrum.Net.csproj", "{18587CCB-CE96-4554-8E60-03386FACA5DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9E41B9EF-3875-499A-8961-0AEE87AF5020}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E41B9EF-3875-499A-8961-0AEE87AF5020}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E41B9EF-3875-499A-8961-0AEE87AF5020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18587CCB-CE96-4554-8E60-03386FACA5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18587CCB-CE96-4554-8E60-03386FACA5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18587CCB-CE96-4554-8E60-03386FACA5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18587CCB-CE96-4554-8E60-03386FACA5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

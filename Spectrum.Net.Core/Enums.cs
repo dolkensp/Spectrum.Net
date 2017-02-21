@@ -9,12 +9,35 @@ namespace Spectrum.Net.Core
 {
     public enum BooleanEnum
     {
-        True = 1,
         False = 0,
+        True = 1,
+    }
+
+    public enum EntityType
+    {
+        [EnumMember(Value = "EMOJI")]
+        Emoji
+    }
+
+    public enum Mutability
+    {
+        [EnumMember(Value = "IMMUTABLE")]
+        Immutable
+    }
+
+    public enum Theme
+    {
+        [EnumMember(Value = "light")]
+        Light,
+
+        [EnumMember(Value = "dark")]
+        Dark,
     }
 
     public enum PayloadType
     {
+        Unknown,
+
         [EnumMember(Value = "message.edit")]
         Message_Edit,
 
@@ -57,11 +80,20 @@ namespace Spectrum.Net.Core
         [EnumMember(Value = "broadcaster.ready")]
         Broadcaster_Ready,
 
+        [EnumMember(Value = "reaction.remove")]
+        Reaction_Remove,
+
+        [EnumMember(Value = "reaction.add")]
+        Reaction_Add,
+
         [EnumMember(Value = "member.roles.update")]
         Member_Roles_Update,
 
         [EnumMember(Value = "message_lobby.latest.update")]
         MessageLobby_Latest_Update,
+
+        [EnumMember(Value = "entity.permissions.update")]
+        Entity_Permissions_Update,
     }
 
     public enum SubscriptionScope
@@ -96,6 +128,9 @@ namespace Spectrum.Net.Core
         [EnumMember(Value = "online")]
         Online,
 
+        [EnumMember(Value = "offline")]
+        Offline,
+
         [EnumMember(Value = "away")]
         Away,
 
@@ -107,15 +142,6 @@ namespace Spectrum.Net.Core
 
         [EnumMember(Value = "invisible")]
         Invisible,
-    }
-
-    public enum Theme
-    {
-        [EnumMember(Value = "light")]
-        Light,
-
-        [EnumMember(Value = "dark")]
-        Dark,
     }
 
     public enum Permissions

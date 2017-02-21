@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Create = Spectrum.Net.Core.Message.Create;
+using New = Spectrum.Net.Core.Message.New;
 
 namespace Spectrum.Net.TestClient
 {
@@ -14,36 +17,55 @@ namespace Spectrum.Net.TestClient
 
         public async Task RunAsync()
         {
-            using (var client = new SpectrumClient(@"https://ptu.cloudimperiumgames.com"))
+            using (var client = new SpectrumClient(deviceId: ConfigurationManager.AppSettings["Spectrum.DeviceId"]))
             {
-                var signin = await client.LoginAsync(ConfigurationManager.AppSettings["Spectrum.Username"], ConfigurationManager.AppSettings["Spectrum.Password"]);
-                var identify = await client.IdentifyAsync();
-
-                // var identify = await client.IdentifyAsync(ConfigurationManager.AppSettings["Token.User"], "x-rsi-ptu-token"); // Alternate way to log in directly - tokens expire
+                var config = await client.LoginAsync(
+                    username: ConfigurationManager.AppSettings["Spectrum.Username"], 
+                    password: ConfigurationManager.AppSettings["Spectrum.Password"]);
 
                 // client.FrameReceived += Client_OnFrameReceived; // Catch raw frame
                 client.MessageReceived += Client_MessageReceived; // Catch new messages
 
-                await client.ConnectAsync(); // Connect to spectrum - MUST call client.IdentifyAsync first
+                await client.ConnectAsync();
 
-                await client.SubscribeAsync(identify.Data.Communities.SelectMany(c => c.Lobbies.Select(l => l.SubscriptionKey)).ToArray()); // Subscribe to all lobbies
+                await client.SubscribeAsync(config.Data.Communities.SelectMany(c => c.Lobbies.Select(l => l.SubscriptionKey)).ToArray()); // Subscribe to all lobbies
 
                 var history = await client.LoadMessagesAsync(1); // Load messages from main lobby
 
-                var sendMessage = await client.SendMessageAsync(new Message
+                var sendMessage = await client.SendMessageAsync(new Create.CreateMessageRequest
                 {
-                    ContentState = new ContentState
+                    ContentState = new Create.ContentStateRequest
                     {
-                        Blocks = new ContentBlock[]
+                        Blocks = new Create.ContentBlockRequest[]
                         {
-                            new ContentBlock
+                            new Create.ContentBlockRequest
                             {
-                                Key = ContentBlock.NewKey(),
-                                Text = "Test Two",
+                                Text = "hi there :bow_and_arrow: ",
+                                EntityRanges = new Create.EntityRange[]
+                                {
+                                    new Create.EntityRange
+                                    {
+                                        Key = 0,
+                                        Length = 15,
+                                        Offset = 9,
+                                    }
+                                }
                             }
                         },
+                        EntityMap = new Dictionary<UInt64, Create.Entity>
+                        {
+                            {
+                                0,
+                                new Create.Entity
+                                {
+                                    Data = ":bow_and_arrow:",
+                                    Mutability = Mutability.Immutable,
+                                    Type = EntityType.Emoji
+                                }
+                            }
+                        }
                     },
-                    LobbyId = 2573,
+                    LobbyId = 20554,
                 }); // Send Message
 
                 var softErase = await client.SoftEraseAsync(sendMessage.Data.Id); // Delete Message
@@ -54,14 +76,14 @@ namespace Spectrum.Net.TestClient
             }
         }
 
-        private void Client_MessageReceived(MessagePayload payload)
+        private void Client_MessageReceived(New.Payload payload)
         {
             Console.WriteLine($"{payload.Message.Member.DisplayName}: {payload.Message.PlainText}"); // Write Message
         }
 
         private void Client_OnFrameReceived(String frame)
         {
-            // Console.WriteLine(frame);
+            File.AppendAllText("frame.log", $"\r\n{frame}");
         }
     }
 }

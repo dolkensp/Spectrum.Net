@@ -6,12 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spectrum.Net.Core
+namespace Spectrum.Net.Core.WebSocket
 {
     public class Payload
     {
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonIgnore]
+        public PayloadType Type
+        {
+            get { return EnumUtils.ToEnum(this._Type, PayloadType.Unknown); }
+            set { this._Type = EnumUtils.ToString(value); }
+        }
+        
         [JsonProperty("type")]
-        public PayloadType Type { get; set; }
+        internal String _Type { get; set; }
     }
 }

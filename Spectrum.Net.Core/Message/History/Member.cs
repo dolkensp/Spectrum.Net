@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
+using Spectrum.Net.Core.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,30 @@ namespace Spectrum.Net.Core.Message.History
         /// Map of Lobby:Role[]
         /// </summary>
         [JsonProperty("roles")]
-        public Dictionary<UInt64, UInt64[]> Roles { get; internal set; }
+        [JsonConverter(typeof(RoleCollectionConverter))]
+        public RoleCollection Roles { get; internal set; }
+    }
+
+    public class RoleCollection
+    {
+        public Dictionary<UInt64, UInt64[]> Mapping { get; set; }
+        public UInt64[] Listing { get; set; }
+
+        public static implicit operator RoleCollection(UInt64[] value)
+        {
+            return new RoleCollection
+            {
+                Listing = value
+            };
+        }
+
+        public static implicit operator RoleCollection(Dictionary<UInt64, UInt64[]> value)
+        {
+            return new RoleCollection
+            {
+                Mapping = value,
+                Listing = value.SelectMany(v => v.Value).ToArray()
+            };
+        }
     }
 }

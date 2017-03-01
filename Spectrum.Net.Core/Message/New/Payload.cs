@@ -12,7 +12,7 @@ namespace Spectrum.Net.Core.Message.New
     public class Payload : WebSocket.Payload
     {
         [JsonProperty("message")]
-        public History.Message Message { get; set; }
+        public Message Message { get; set; }
 
         [JsonProperty("action_id")]
         public UInt64 ActionId { get; internal set; }

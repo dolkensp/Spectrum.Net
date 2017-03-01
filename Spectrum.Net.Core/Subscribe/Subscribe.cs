@@ -11,7 +11,7 @@ namespace Spectrum.Net.Core.Subscribe
     public class Payload : WebSocket.Payload
     {
         [JsonProperty("subscription_keys")]
-        public String[] SubscriptionKeys { get; set; }
+        public IEnumerable<String> SubscriptionKeys { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("subscription_scope")]

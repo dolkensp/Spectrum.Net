@@ -25,14 +25,14 @@ namespace Spectrum.Net.Core
             {
                 this._rsiToken = File.ReadAllText(TOKEN_CACHE);
 
-                identify = await this.IdentifyAsync(this._rsiToken, tokenName);
+                if (!String.IsNullOrWhiteSpace(this._rsiToken))
+                {
+                    identify = await this.IdentifyAsync(this._rsiToken, tokenName);
+                }
             }
 
             if (String.IsNullOrWhiteSpace(identify?.Data?.Token))
             {
-                this._apiClient.DefaultRequestHeaders.Remove("Cookie");
-                this._apiClient.DefaultRequestHeaders.Add("Cookie", $"_rsi_device={this._deviceId}");
-
                 var payload = new SignIn.Request { Username = username, Password = password, Remember = 0 };
                 var container = new ObjectContent<SignIn.Request>(payload, this._mediaTypeFormatter);
 

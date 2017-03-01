@@ -15,10 +15,10 @@ namespace Spectrum.Net.Core.Message.History
         public Int32 Depth { get; internal set; }
 
         [JsonProperty("entityRanges")]
-        public EntityRange[] EntityRanges { get; internal set; } = new EntityRange[] { };
+        public IEnumerable<EntityRange> EntityRanges { get; internal set; } = new EntityRange[] { };
 
         [JsonProperty("inlineStyleRanges")]
-        public StyleRange[] StyleRanges { get; internal set; } = new StyleRange[] { };
+        public IEnumerable<StyleRange> StyleRanges { get; internal set; } = new StyleRange[] { };
 
         [JsonProperty("key")]
         public String Key { get; internal set; }

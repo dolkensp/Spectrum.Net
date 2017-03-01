@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core.Session
 {
-    public class Member : Message.History.Member
+    public class Member
     {
         [JsonProperty("id")]
         public UInt64 Id { get; internal set; }

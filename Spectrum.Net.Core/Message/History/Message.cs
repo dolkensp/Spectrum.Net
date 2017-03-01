@@ -45,16 +45,43 @@ namespace Spectrum.Net.Core.Message.History
         [JsonProperty("time_created")]
         public Int64 TimeCreated { get; internal set; } = (DateTime.UtcNow.Ticks - 621355968000000000) / 10000000;
 
+        [JsonIgnore]
+        public DateTime Timestamp
+        {
+            get { return new DateTime((this.TimeCreated * 10000000) + 621355968000000000); }
+            set { this.TimeCreated = (value.Ticks - 621355968000000000) / 10000000; }
+        }
+
         [JsonProperty("time_modified")]
         public Int64 TimeModified { get; internal set; } = (DateTime.UtcNow.Ticks - 621355968000000000) / 10000000;
 
+        [JsonIgnore]
+        public DateTime? EditedTimestamp
+        {
+            get
+            {
+                if (this.TimeCreated >= this.TimeModified) return null;
+                else return new DateTime((this.TimeModified * 10000000) + 621355968000000000);
+            }
+            set
+            {
+                if (!value.HasValue) this.TimeModified = this.TimeCreated;
+                else this.TimeModified = (value.Value.Ticks - 621355968000000000) / 10000000;
+            }
+        }
+
         [JsonProperty("reactions")]
-        public Reaction[] Reactions { get; internal set; }
+        public IEnumerable<Reaction> Reactions { get; internal set; }
 
         [JsonProperty("erased_by")]
         public Member ErasedBy { get; internal set; }
 
         [JsonProperty("is_erased")]
         public Boolean IsErased { get; internal set; }
+
+        public override String ToString()
+        {
+            return $"[{this.TimeCreated}] {this.Member.DisplayName}: {this.PlainText}";
+        }
     }
 }

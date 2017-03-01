@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core
 {
-    public delegate void MessageReceivedDelegate(Message.New.Payload message);
+    public delegate void MessageReceivedDelegate(Message.New.Payload message, Session.Lobby lobby);
 
     public partial class SpectrumClient
     {

@@ -94,8 +94,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\MessageDataConverter.cs" />
+    <Compile Include="Converters\RoleCollectionConverter.cs" />
+    <Compile Include="Lobby\Update\Payload.cs" />
+    <Compile Include="Lobby\Leave\Payload.cs" />
+    <Compile Include="Lobby\Join\Payload.cs" />
+    <Compile Include="Search\_SpectrumClient.cs" />
     <Compile Include="EnumUtils.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Lobby\_SpectrumClient.cs" />
+    <Compile Include="Schema\PayloadSchema.cs" />
     <Compile Include="Message\Create\ContentBlock.cs" />
     <Compile Include="Message\Create\ContentState.cs" />
     <Compile Include="Message\Create\CreateMessageRequest.cs" />
@@ -129,6 +137,8 @@
     <Compile Include="Session\Presence.cs" />
     <Compile Include="Session\_SpectrumClient.cs" />
     <Compile Include="SignIn\_SpectrumClient.cs" />
+    <Compile Include="Converters\PayloadTypeConverter.cs" />
+    <Compile Include="Message\New\Message.cs" />
     <Compile Include="WebSocket\_SpectrumClient.cs" />
     <Compile Include="Session\Bookmark.cs" />
     <Compile Include="Session\ChannelGroup.cs" />
@@ -154,7 +164,9 @@
     <None Include="app.config" />
     <None Include="nuget.bat" />
     <None Include="packages.config" />
-    <None Include="Spectrum.Net.Core.nuspec" />
+    <None Include="Spectrum.Net.Core.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

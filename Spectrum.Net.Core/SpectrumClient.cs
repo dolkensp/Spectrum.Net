@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,13 +16,14 @@ namespace Spectrum.Net.Core
 {
     public partial class SpectrumClient : IDisposable
     {
-        private HttpClient _apiClient = new HttpClient { };
+        private CookieContainer _cookieContainer;
+        private HttpClient _apiClient;
         private ClientWebSocket _socketClient = new ClientWebSocket();
         private CancellationTokenSource _cancellationOwner = new CancellationTokenSource { };
         private MediaTypeFormatter _mediaTypeFormatter = new JsonMediaTypeFormatter { };
 
+        private static readonly String TOKEN_CACHE = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "token.cache");
         private const String TAVERN_ID = "il8ce9ddea971"; // 52dzt61b6oyss
-        private const String TOKEN_CACHE = "token.cache";
         private const String SPECTRUM_VERSION = "2.6.1";
 
         public static readonly Int32 KEEPALIVE_TIMEOUT = 30000;
@@ -39,12 +39,19 @@ namespace Spectrum.Net.Core
             this._baseAddress = baseAddress;
             this._deviceId = deviceId;
 
-            this._apiClient.BaseAddress = new Uri(this._baseAddress);
+            this._cookieContainer = new CookieContainer { };
 
-            if (!String.IsNullOrWhiteSpace(this._deviceId))
+            var handler = new HttpClientHandler
             {
-                this._apiClient.DefaultRequestHeaders.Add("Cookie", $"_rsi_device={this._deviceId}");
-            }
+                CookieContainer = this._cookieContainer
+            };
+
+            this._apiClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri(this._baseAddress)
+            };
+
+            if (!String.IsNullOrWhiteSpace(this._deviceId)) this._cookieContainer.Add(this._apiClient.BaseAddress, new Cookie("_rsi_device", this._deviceId));
         }
         
         public void Dispose()

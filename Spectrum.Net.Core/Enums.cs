@@ -137,7 +137,10 @@ namespace Spectrum.Net.Core
         [EnumMember(Value = "playing")]
         Playing,
 
-        [EnumMember(Value = "dnd")]
+        // [EnumMember(Value = "dnd")]
+        // DoNotDisturb,
+
+        [EnumMember(Value = "do_not_disturb")]
         DoNotDisturb,
 
         [EnumMember(Value = "invisible")]

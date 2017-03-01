@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Spectrum.Net.Core.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,20 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core.Message.Create
 {
-    public abstract class ContentBlock
+    public class ContentBlock
     {
+        [JsonProperty("data")]
+        [JsonConverter(typeof(MessageDataConverter))]
+        public IEnumerable<MessageData> Data { get; set; } = new MessageData[] { };
+
         [JsonProperty("depth")]
         public Int32 Depth { get; set; }
 
         [JsonProperty("entityRanges")]
-        public EntityRange[] EntityRanges { get; set; } = new EntityRange[] { };
+        public IEnumerable<EntityRange> EntityRanges { get; set; } = new EntityRange[] { };
 
         [JsonProperty("inlineStyleRanges")]
-        public StyleRange[] StyleRanges { get; set; } = new StyleRange[] { };
+        public IEnumerable<StyleRange> StyleRanges { get; set; } = new StyleRange[] { };
 
         [JsonProperty("key")]
         public String Key { get; internal set; } = ContentBlock.NewKey();
@@ -41,8 +46,9 @@ namespace Spectrum.Net.Core.Message.Create
         //   return key;
         // }
 
+
         private static String _lastKey;
-        private static Int64 KEY_SPACE = 60466175;
+        private static Int64 KEY_SPACE = (Int64)Math.Pow(36, 5) - 1; // 60466175;
         public static String NewKey()
         {
             var nextKey = (DateTime.UtcNow.Ticks % KEY_SPACE).ToBase(36);
@@ -55,17 +61,5 @@ namespace Spectrum.Net.Core.Message.Create
 
             return _lastKey = nextKey;
         }
-    }
-
-    public class ContentBlockRequest : ContentBlock
-    {
-        [JsonProperty("data")]
-        public MessageData Data { get; set; } = new MessageData { };
-    }
-
-    public class ContentBlockResponse : ContentBlock
-    {
-        [JsonProperty("data")]
-        public MessageData[] Data { get; internal set; }
     }
 }

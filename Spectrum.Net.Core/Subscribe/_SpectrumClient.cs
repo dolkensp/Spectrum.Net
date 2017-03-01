@@ -17,7 +17,7 @@ namespace Spectrum.Net.Core
 {
     public partial class SpectrumClient
     {
-        public async Task SubscribeAsync(String[] subscriptionKeys, SubscriptionScope scope = SubscriptionScope.Content)
+        public async Task SubscribeAsync(IEnumerable<String> subscriptionKeys, SubscriptionScope scope = SubscriptionScope.Content)
         {
             await this.SendPayloadAsync(new Subscribe.Payload
             {

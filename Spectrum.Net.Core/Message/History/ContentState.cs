@@ -14,6 +14,6 @@ namespace Spectrum.Net.Core.Message.History
         public Object EntityMap { get; internal set; } = new Object { };
 
         [JsonProperty("blocks")]
-        public ContentBlock[] Blocks { get; internal set; }
+        public IEnumerable<ContentBlock> Blocks { get; internal set; }
     }
 }

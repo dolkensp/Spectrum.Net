@@ -11,7 +11,7 @@ namespace Spectrum.Net.Core.Message.Create
     public class ContentStateRequest
     {
         [JsonProperty("blocks")]
-        public ContentBlockRequest[] Blocks { get; set; }
+        public IEnumerable<ContentBlock> Blocks { get; set; }
 
         [JsonProperty("entityMap")]
         public Dictionary<UInt64, Entity> EntityMap { get; set; } = new Dictionary<UInt64, Entity> { };
@@ -20,9 +20,9 @@ namespace Spectrum.Net.Core.Message.Create
     public class ContentStateResponse
     {
         [JsonProperty("blocks")]
-        public ContentBlockResponse[] Blocks { get; internal set; }
+        public IEnumerable<ContentBlock> Blocks { get; internal set; }
 
         [JsonProperty("entityMap")]
-        public Entity[] EntityMap { get; internal set; }
+        public IEnumerable<Entity> EntityMap { get; internal set; }
     }
 }

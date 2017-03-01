@@ -11,6 +11,6 @@ namespace Spectrum.Net.Core.Message.History
     public class HistoryResponse
     {
         [JsonProperty("messages")]
-        public Message[] Messages { get; internal set; }
+        public IEnumerable<Message> Messages { get; internal set; }
     }
 }

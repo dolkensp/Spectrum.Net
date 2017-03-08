@@ -39,8 +39,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Spectrum.Net.Core, Version=0.2.6268.28108, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Spectrum.Net.Core.0.2.6268.28108\lib\net461\Spectrum.Net.Core.dll</HintPath>
+    <Reference Include="Spectrum.Net.Core, Version=0.2.6276.15736, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spectrum.Net.Core.0.2.6276.15736\lib\net461\Spectrum.Net.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

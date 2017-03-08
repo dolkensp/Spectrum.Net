@@ -29,7 +29,7 @@ namespace Spectrum.Net.TestClient
                     password: ConfigurationManager.AppSettings["Spectrum.Password"]);
 
                 // client.FrameReceived += Client_OnFrameReceived; // Catch raw frame
-                client.MessageReceived += Client_MessageReceived; // Catch new messages
+                client.OnMessageReceived += Client_MessageReceived; // Catch new messages
                 
                 await client.ConnectAsync();
 
@@ -46,7 +46,7 @@ namespace Spectrum.Net.TestClient
                 // Subscribe to Avocado Lobbies
                 await client.SubscribeAsync(this._community.Lobbies.Select(l => l.SubscriptionKey));
 
-                client.KeepAlive += async () =>
+                client.OnKeepAlive += async () =>
                 {
                     var buffer = new List<UInt64> { };
 
@@ -132,7 +132,7 @@ namespace Spectrum.Net.TestClient
             }
         }
 
-        private void Client_MessageReceived(New.Payload payload, Session.Lobby lobby)
+        private Task Client_MessageReceived(New.Payload payload, Session.Lobby lobby)
         {
             if (lobby?.Type == LobbyType.Private)
             {
@@ -142,11 +142,15 @@ namespace Spectrum.Net.TestClient
             {
                 Console.WriteLine($"[{lobby?.Name ?? "Unknown"}] {payload.Message.Member.DisplayName}: {payload.Message.PlainText}"); // Write Message
             }
+
+            return Task.CompletedTask;
         }
 
-        private void Client_OnFrameReceived(String frame)
+        private Task Client_OnFrameReceived(String frame)
         {
             // File.AppendAllText("frame.log", $"\r\n{frame}");
+
+            return Task.CompletedTask;
         }
     }
 }

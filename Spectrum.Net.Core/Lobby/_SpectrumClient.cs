@@ -15,15 +15,15 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core
 {
-    public delegate void MemberPresenceJoinDelegate(Lobby.Join.Payload presence, Session.Lobby lobby);
-    public delegate void MemberPresenceLeaveDelegate(Lobby.Leave.Payload presence, Session.Lobby lobby);
-    public delegate void MemberPresenceUpdateDelegate(Lobby.Update.Payload presence, Session.Lobby lobby);
+    public delegate Task MemberJoinDelegate(Lobby.Join.Payload presence, Session.Lobby lobby);
+    public delegate Task MemberLeaveDelegate(Lobby.Leave.Payload presence, Session.Lobby lobby);
+    public delegate Task MemberUpdateDelegate(Lobby.Update.Payload presence, Session.Lobby lobby);
 
     public partial class SpectrumClient
     {
-        public event MemberPresenceJoinDelegate MemberPresenceJoin;
-        public event MemberPresenceLeaveDelegate MemberPresenceLeave;
-        public event MemberPresenceUpdateDelegate MemberPresenceUpdate;
+        public event MemberJoinDelegate OnMemberJoin;
+        public event MemberLeaveDelegate OnMemberLeave;
+        public event MemberUpdateDelegate OnMemberUpdate;
 
         public async Task<Result<Message.History.Member[]>> LoadPresencesAsync(UInt64 lobbyId)
         {

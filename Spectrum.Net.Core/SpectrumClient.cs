@@ -27,6 +27,8 @@ namespace Spectrum.Net.Core
         private const String SPECTRUM_VERSION = "2.6.1";
 
         public static readonly Int32 KEEPALIVE_TIMEOUT = 30000;
+        public static readonly Int32 RECONNECT_TIMEOUT = 5000;
+
         public static readonly ArraySegment<Byte> KEEPALIVE = new ArraySegment<Byte>(new Byte[] { 8 });
 
         private String _rsiTokenName;

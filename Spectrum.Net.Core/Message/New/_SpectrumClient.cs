@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 
 namespace Spectrum.Net.Core
 {
-    public delegate void MessageReceivedDelegate(Message.New.Payload message, Session.Lobby lobby);
+    public delegate Task MessageReceivedDelegate(Message.New.Payload message, Session.Lobby lobby);
 
     public partial class SpectrumClient
     {
-        public event MessageReceivedDelegate MessageReceived;
+        public event MessageReceivedDelegate OnMessageReceived;
     }
 }

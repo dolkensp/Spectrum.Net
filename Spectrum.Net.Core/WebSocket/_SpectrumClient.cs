@@ -50,6 +50,8 @@ namespace Spectrum.Net.Core
             await Task.CompletedTask;
         }
 
+        private Int32 _errorCount = 0;
+
         private async Task CheckSocket(Boolean clean = false)
         {
             if (this._socketClient.State != WebSocketState.Open)
@@ -62,8 +64,21 @@ namespace Spectrum.Net.Core
                     {
                         if (!clean)
                         {
+                            Task.Run(async () =>
+                            {
+                                this._errorCount++;
+                                await Task.Delay(ERROR_TIMEOUT * this._errorCount);
+                                this._errorCount--;
+                            });
+
                             await (this.OnDisconnect?.Invoke() ?? Task.CompletedTask);
-                            Task.Delay(RECONNECT_TIMEOUT);
+
+                            await Task.Delay(MAJOR_TIMEOUT * this._errorCount);
+
+                            if (this._errorCount > 1)
+                            {
+                                await this.IdentifyAsync(this._rsiToken, this._rsiTokenName);
+                            }
                         }
 
                         Debug.WriteLine($"Connecting to {this._wsRoot}/?token={this._wsToken}");
@@ -79,6 +94,14 @@ namespace Spectrum.Net.Core
                 catch (Exception ex)
                 {
                     await (this.OnError?.Invoke(ex) ?? Task.CompletedTask);
+
+                    Task.Run(async () =>
+                    {
+                        this._errorCount++;
+                        await Task.Delay(ERROR_TIMEOUT * this._errorCount);
+                        this._errorCount--;
+                    });
+                    
                     ExceptionDispatchInfo.Capture(ex).Throw();
                 }
                 finally
@@ -207,7 +230,7 @@ namespace Spectrum.Net.Core
                     }
                 }
 
-                Thread.Sleep(KEEPALIVE_TIMEOUT);
+                await Task.Delay(KEEPALIVE_TIMEOUT);
             }
         }
 

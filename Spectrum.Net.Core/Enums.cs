@@ -112,6 +112,9 @@ namespace Spectrum.Net.Core
 
         [EnumMember(Value = "forum_channel")]
         Forum_Channel,
+
+        [EnumMember(Value = "forum_thread")]
+        Forum_Thread,
     }
 
     public enum LobbyType

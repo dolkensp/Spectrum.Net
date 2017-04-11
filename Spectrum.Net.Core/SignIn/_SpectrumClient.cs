@@ -19,6 +19,8 @@ namespace Spectrum.Net.Core
     {
         public async Task<Result<Session.Response>> LoginAsync(String username, String password, String tokenName = "x-rsi-token")
         {
+            this._rsiTokenName = tokenName;
+
             Result<Session.Response> identify = null;
 
             if (File.Exists(TOKEN_CACHE))
@@ -27,7 +29,7 @@ namespace Spectrum.Net.Core
 
                 if (!String.IsNullOrWhiteSpace(this._rsiToken))
                 {
-                    identify = await this.IdentifyAsync(this._rsiToken, tokenName);
+                    identify = await this.IdentifyAsync(this._rsiToken, this._rsiTokenName);
                 }
             }
 
@@ -50,7 +52,7 @@ namespace Spectrum.Net.Core
                     this._rsiToken = signin.Data.SessionId;
                 }
 
-                identify = await this.IdentifyAsync(this._rsiToken, tokenName);
+                identify = await this.IdentifyAsync(this._rsiToken, this._rsiTokenName);
             }
 
             return identify;

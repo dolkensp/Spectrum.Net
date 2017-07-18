@@ -99,6 +99,9 @@
     <Compile Include="Lobby\Update\Payload.cs" />
     <Compile Include="Lobby\Leave\Payload.cs" />
     <Compile Include="Lobby\Join\Payload.cs" />
+    <Compile Include="Message\History\Embed.cs" />
+    <Compile Include="Message\History\Media.cs" />
+    <Compile Include="Message\History\Thumbnail.cs" />
     <Compile Include="Search\_SpectrumClient.cs" />
     <Compile Include="EnumUtils.cs" />
     <Compile Include="ExtensionMethods.cs" />

@@ -16,7 +16,11 @@ namespace Spectrum.Net.Core
     public enum EntityType
     {
         [EnumMember(Value = "EMOJI")]
-        Emoji
+        Emoji,
+        [EnumMember(Value = "MENTION")]
+        Mention,
+        [EnumMember(Value = "LINK")]
+        Link,
     }
 
     public enum Mutability

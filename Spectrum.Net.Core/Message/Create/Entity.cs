@@ -11,7 +11,7 @@ namespace Spectrum.Net.Core.Message.Create
     public class Entity
     {
         [JsonProperty("data")]
-        public String Data { get; set; }
+        public Object Data { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("mutability")]

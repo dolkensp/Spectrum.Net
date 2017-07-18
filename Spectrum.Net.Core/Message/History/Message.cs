@@ -22,7 +22,8 @@ namespace Spectrum.Net.Core.Message.History
         [JsonProperty("lobby_id")]
         public UInt64 LobbyId { get; internal set; }
 
-        // Media
+        [JsonProperty("media")]
+        public Media Media { get; internal set; }
 
         [JsonProperty("media_id")]
         public String MediaId { get; internal set; }
